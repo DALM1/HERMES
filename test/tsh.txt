@@ -1,0 +1,39 @@
+(base) ➜  hermes curl -X POST http://localhost:4000/api/register \           [🐍 3.10.12]
+  -H "Content-Type: application/json" \
+  -d '{
+    "user": {
+      "username": "DALM1",
+      "email": "dimitri.almon@epitech.eu",
+      "password": "48714871",
+      "full_name": "DALM1"
+    }
+  }'
+
+
+
+  (base) ➜  hermes curl -X POST http://localhost:4000/api/login \              [🐍 3.10.12]
+  -H "Content-Type: application/json" \
+  -d '{
+    "user": {
+      "email": "dev.tst@epitech.eu",
+      "password": "password123"
+    }
+  }'
+
+
+curl -X POST http://localhost:4000/api/conversations \
+  -H "Content-Type: application/json" \  -H "Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJoZXJtZXMiLCJleHAiOjE3NDc4MTU5NTEsImlhdCI6MTc0NTM5Njc1MSwiaXNzIjoiaGVybWVzIiwianRpIjoiMGE0ZmMyMjEtZjkyMy00NGNmLWE4YjYtNjNhMWZlMTNhNGI1IiwibmJmIjoxNzQ1Mzk2NzUwLCJzdWIiOiIyMCIsInR5cCI6ImFjY2VzcyJ9.G0q_rNI1l18YhYtmenCriEMtYV4pJLlIEaqApYbo1HYVL0HAEcGUudx-J1EvLhb8geA40dJ1egUtu0eAg0PXig" \
+  -d '{
+    "conversation": {
+      "name": "Discussion privée",
+      "description": "Conversation entre deux utilisateurs",
+      "is_group": false,
+      "type": "direct"
+    },
+
+
+    (base) ➜  hermes curl -X POST http://localhost:4000/api/conversations/5/members \
+  -H "Content-Type: application/json" \  -H "Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJoZXJtZXMiLCJleHAiOjE3NDc4MTU5NTEsImlhdCI6MTc0NTM5Njc1MSwiaXNzIjoiaGVybWVzIiwianRpIjoiMGE0ZmMyMjEtZjkyMy00NGNmLWE4YjYtNjNhMWZlMTNhNGI1IiwibmJmIjoxNzQ1Mzk2NzUwLCJzdWIiOiIyMCIsInR5cCI6ImFjY2VzcyJ9.G0q_rNI1l18YhYtmenCriEMtYV4pJLlIEaqApYbo1HYVL0HAEcGUudx-J1EvLhb8geA40dJ1egUtu0eAg0PXig" \
+  -d '{
+    "user_id": 20
+  }'                                                                             <....

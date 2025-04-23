@@ -1,0 +1,8 @@
+.git
+_build
+deps
+.elixir_ls
+.github
+.vscode
+test
+priv/static
