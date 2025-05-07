@@ -36,6 +36,15 @@ defmodule HermesWeb.AuthController do
     end
   end
   
+  def logout(conn, _params) do
+    token = Guardian.Plug.current_token(conn)
+    Guardian.revoke(token)
+    
+    conn
+    |> put_status(:ok)
+    |> render("logout.json", %{message: "Successfully logged out"})
+  end
+  
   defp format_errors(changeset) do
     Ecto.Changeset.traverse_errors(changeset, fn {msg, opts} ->
       Enum.reduce(opts, msg, fn {key, value}, acc ->

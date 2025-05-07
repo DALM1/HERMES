@@ -1,0 +1,123 @@
+:root {
+  --primary-color: #007AFF;
+  --secondary-color: #5AC8FA;
+  --success-color: #34C759;
+  --warning-color: #FF9500;
+  --danger-color: #FF3B30;
+  --light-gray: #F2F2F7;
+  --medium-gray: #C7C7CC;
+  --dark-gray: #8E8E93;
+  --text-primary: #000000;
+  --text-secondary: #3C3C43;
+  --background-primary: #FFFFFF;
+  --background-secondary: #F2F2F7;
+  --border-radius: 10px;
+  --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --animation-duration: 0.2s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  background-color: var(--background-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+button, input, textarea {
+  font-family: var(--font-family);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: all var(--animation-duration) ease;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 16px;
+  transition: all var(--animation-duration) ease;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0071EB;
+}
+
+.btn-secondary {
+  background-color: var(--light-gray);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background-color: #E5E5EA;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--medium-gray);
+  font-size: 16px;
+  transition: border-color var(--animation-duration) ease;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.card {
+  background-color: var(--background-primary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+  padding: 16px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-primary: #FFFFFF;
+    --text-secondary: #EBEBF5;
+    --background-primary: #1C1C1E;
+    --background-secondary: #2C2C2E;
+    --light-gray: #3A3A3C;
+    --medium-gray: #48484A;
+    --dark-gray: #636366;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn var(--animation-duration) ease;
+}

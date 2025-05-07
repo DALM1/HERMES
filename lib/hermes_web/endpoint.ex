@@ -36,9 +36,17 @@ defmodule HermesWeb.Endpoint do
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
 
+  # Configuration CORS correcte
+  plug CORSPlug,
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    headers: ["Authorization", "Content-Type", "Accept", "Origin", "User-Agent"],
+    credentials: true,
+    max_age: 86400
+    
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug CORSPlug
+  # Suppression du second CORSPlug redondant
   plug HermesWeb.Router
 end

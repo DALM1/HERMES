@@ -93,12 +93,12 @@ defmodule Hermes.Chat do
         # Update conversation's last_message_at
         # Convertir la date en DateTime UTC et tronquer les microsecondes
         utc_now = DateTime.utc_now() |> DateTime.truncate(:second)
-        
+
         from(c in Conversation, where: c.id == ^message.conversation_id)
         |> Repo.one()
         |> Ecto.Changeset.change(%{last_message_at: utc_now})
         |> Repo.update()
-    
+
         {:ok, message}
       error ->
         error
@@ -146,9 +146,14 @@ defmodule Hermes.Chat do
   end
 
   def remove_reaction(message_id, user_id, emoji) do
-    from(r in Reaction,
+    result = from(r in Reaction,
       where: r.message_id == ^message_id and r.user_id == ^user_id and r.emoji == ^emoji)
     |> Repo.delete_all()
+
+    case result do
+      {count, _} when count > 0 -> {:ok, count}
+      {0, _} -> {:error, :not_found}
+    end
   end
 
   def list_reactions(message_id) do
@@ -161,24 +166,62 @@ defmodule Hermes.Chat do
   # Add this function to your Chat module if it doesn't exist already
   def is_member?(conversation, user_id, role \\ nil) do
     # Ensure conversation_members is loaded
-    conversation = 
+    conversation =
       if Ecto.assoc_loaded?(conversation.conversation_members) do
         conversation
       else
         Repo.preload(conversation, :conversation_members)
       end
-    
+
     # Check if user is a member with the specified role (if any)
     Enum.any?(conversation.conversation_members, fn member ->
       member.user_id == user_id && (is_nil(role) || member.role == role)
     end)
   end
 
-  # Supprimez tous ces commentaires et la deuxième définition de update_last_read
-  # Gardez uniquement la première définition à la ligne 76
-
   # Add this function if you need to delete conversations
   def delete_conversation(%Conversation{} = conversation) do
     Repo.delete(conversation)
+  end
+
+  # Nouvelle fonction pour lister les conversations publiques
+  def list_public_conversations(limit \\ 20) do
+    query = from c in Conversation,
+      where: c.is_public == true,
+      order_by: [desc: c.inserted_at],
+      limit: ^limit,
+      preload: [conversation_members: :user]
+
+    Repo.all(query)
+  end
+
+  # Fonction pour rejoindre une conversation
+  def join_conversation(conversation_id, user_id) do
+    now = DateTime.utc_now() |> DateTime.truncate(:second)
+
+    %ConversationMember{
+      conversation_id: conversation_id,
+      user_id: user_id,
+      role: "member",
+      joined_at: now
+    }
+    |> ConversationMember.changeset(%{})
+    |> Repo.insert()
+  end
+
+  @doc """
+  Marks a conversation as read for a specific user.
+  """
+  def mark_conversation_as_read(conversation_id, user_id) do
+    # Trouver le membre de la conversation
+    member = Repo.get_by(ConversationMember, conversation_id: conversation_id, user_id: user_id)
+
+    if member do
+      member
+      |> Ecto.Changeset.change(%{last_read_at: DateTime.utc_now() |> DateTime.truncate(:second)})
+      |> Repo.update()
+    else
+      {:error, :not_a_member}
+    end
   end
 end

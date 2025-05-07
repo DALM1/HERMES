@@ -1,6 +1,7 @@
 defmodule HermesWeb.ErrorView do
   use HermesWeb, :view
-
+  # Removing the unused import
+  
   def render("404.json", _assigns) do
     %{errors: %{detail: "Not Found"}}
   end
@@ -37,6 +38,15 @@ defmodule HermesWeb.ErrorView do
 
   def render("500.json", _assigns) do
     %{errors: %{detail: "Internal server error"}}
+  end
+
+  # Define the translate_error function directly
+  defp translate_error({msg, opts}) do
+    if count = opts[:count] do
+      Gettext.dngettext(HermesWeb.Gettext, "errors", msg, msg, count, opts)
+    else
+      Gettext.dgettext(HermesWeb.Gettext, "errors", msg, opts)
+    end
   end
 
   defp translate_errors(changeset) do

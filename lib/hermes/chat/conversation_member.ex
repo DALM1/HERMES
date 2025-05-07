@@ -1,9 +1,9 @@
 defmodule Hermes.Chat.ConversationMember do
   use Ecto.Schema
   import Ecto.Changeset
-  # Supprimez cette ligne ou utilisez l'alias
-  # alias Hermes.Accounts.User
-  alias Hermes.Chat.{Conversation, ConversationMember}
+  alias Hermes.Chat.Conversation
+  # Add the correct alias for your User schema
+  alias Hermes.Accounts.User  # Adjust this path to match your actual User schema location
 
   schema "conversation_members" do
     field :role, :string, default: "member"
@@ -11,14 +11,14 @@ defmodule Hermes.Chat.ConversationMember do
     field :last_read_at, :utc_datetime
     field :is_muted, :boolean, default: false
     field :is_pinned, :boolean, default: false
-
+    
     belongs_to :conversation, Conversation
-    belongs_to :user, Hermes.Accounts.User
-
+    belongs_to :user, User  # This now correctly references the User schema
+    
     timestamps()
   end
 
-  def changeset(%ConversationMember{} = member, attrs) do
+  def changeset(%Hermes.Chat.ConversationMember{} = member, attrs) do
     member
     |> cast(attrs, [:user_id, :conversation_id, :role, :joined_at, :last_read_at, :is_muted, :is_pinned])
     |> validate_required([:user_id, :conversation_id, :role, :joined_at])

@@ -38,7 +38,7 @@ defmodule Hermes.MixProject do
       {:bcrypt_elixir, "~> 3.0"},
       {:cors_plug, "~> 3.0"},
       {:swoosh, "~> 1.4"},
-      {:hackney, "~> 1.9"}  # Add hackney dependency for Swoosh
+      {:hackney, "~> 1.9"}
     ]
   end
 end

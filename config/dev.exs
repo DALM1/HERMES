@@ -1,6 +1,5 @@
 import Config
 
-# Configure your database
 config :hermes, Hermes.Repo,
   username: "postgres",
   password: "postgres",
@@ -18,7 +17,7 @@ config :hermes, HermesWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "dev_secret_key_base_replace_this_in_production",
+  secret_key_base: "doSsfkhminK67Afwgw44Vl2ZWdqf6Nt6jF4R2CVfoMwjBxeBFDTlIG+puEMtYLeyy",
   watchers: []
 
 # Do not include metadata nor timestamps in development logs

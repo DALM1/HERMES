@@ -23,6 +23,11 @@ defmodule HermesWeb.UserController do
       render(conn, "show.json", user: user)
     end
   end
+  
+  def me(conn, _params) do
+    user = Guardian.Plug.current_resource(conn)
+    render(conn, "show.json", user: user)
+  end
 
   # Modifiez la fonction update pour gérer le cas "me"
   def update(conn, %{"id" => "me"} = params) do
@@ -39,7 +44,7 @@ defmodule HermesWeb.UserController do
       _ ->
         conn
         |> put_status(:not_found)
-        |> put_view(HermesWeb.ErrorView)  # Changed from render(ErrorView, ...) to put_view + render
+        |> put_view(HermesWeb.ErrorView)
         |> render("404.json", message: "User not found")
     end
   end
@@ -51,13 +56,8 @@ defmodule HermesWeb.UserController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> put_view(HermesWeb.ErrorView)  # Changed from render(ErrorView, ...) to put_view + render
-        |> render("error.json", changeset: changeset)
+        |> put_view(HermesWeb.ErrorView)
+        |> render("422.json", changeset: changeset)
     end
-  end
-
-  def me(conn, _params) do
-    user = Guardian.Plug.current_resource(conn)
-    render(conn, "show.json", user: user)
   end
 end

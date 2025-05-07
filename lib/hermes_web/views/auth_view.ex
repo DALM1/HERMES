@@ -15,6 +15,10 @@ defmodule HermesWeb.AuthView do
       token: token
     }
   end
+  
+  def render("logout.json", %{message: message}) do
+    %{message: message}
+  end
 
   def render("error.json", %{message: message}) do
     %{error: message}
