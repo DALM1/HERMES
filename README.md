@@ -1,23 +1,3 @@
 # Hermes
 
-**TODO: Add description**
-
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `hermes` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:hermes, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/hermes>.
-
-# HERMES
-# HERMES
+ <img src="https://github.com/DALM1/hermes/whiper-logo.png" alt="HERMES" width="800"/>

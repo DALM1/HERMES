@@ -31,3 +31,50 @@ curl -X POST http://localhost:4000/api/conversations/5/members \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJoZXJtZXMiLCJleHAiOjE3NDc4MTU5NTEsImlhdCI6MTc0NTM5Njc1MSwiaXNzIjoiaGVybWVzIiwianRpIjoiMGE0ZmMyMjEtZjkyMy00NGNmLWE4YjYtNjNhMWZlMTNhNGI1IiwibmJmIjoxNzQ1Mzk2NzUwLCJzdWIiOiIyMCIsInR5cCI6ImFjY2VzcyJ9.G0q_rNI1l18YhYtmenCriEMtYV4pJLlIEaqApYbo1HYVL0HAEcGUudx-J1EvLhb8geA40dJ1egUtu0eAg0PXig" \
   -d '{"user_id": 20}'                                                                            <....
+
+// Enregistrement d'un utilisateur (113)
+
+curl -X POST http://localhost:4000/api/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "user": {
+      "username": "113",
+      "email": "aeron.ep@epitech.eu",
+      "password": "48714871",
+      "full_name": "dalm"
+    }
+  }'
+
+// Récupération des conversations (première tentative)
+
+curl -X GET http://localhost:4000/api/conversations \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJoZXJtZXMiLCJleHAiOjE3NDg5OTg3MjksImlhdCI6MTc0NjU3OTUyOSwiaXNzIjoiaGVybWVzIiwianRpIjoiMGZlNDQyYjctNDJhMy00MzZhLTgzM2QtNDFlOTM4ZmJiN2MwIiwibmJmIjoxNzQ2NTc5NTI4LCJzdWIiOiIyNSIsInR5cCI6ImFjY2VzcyJ9.hpmew25ZxXIYyrD1QRb5bGVVVYTkvWs3ZfaceJzPgCbw2ZJqgNOC1JtDq19ll1L_Mqv1cMzM-b5oYUUwIhkbRA"
+
+// Récupération des conversations (deuxième tentative)
+
+curl -X GET http://localhost:4000/api/conversations \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJoZXJtZXMiLCJleHAiOjE3NDg5OTg3MjksImlhdCI6MTc0NjU3OTUyOSwiaXNzIjoiaGVybWVzIiwianRpIjoiMGZlNDQyYjctNDJhMy00MzZhLTgzM2QtNDFlOTM4ZmJiN2MwIiwibmJmIjoxNzQ2NTc5NTI4LCJzdWIiOiIyNSIsInR5cCI6ImFjY2VzcyJ9.hpmew25ZxXIYyrD1QRb5bGVVVYTkvWs3ZfaceJzPgCbw2ZJqgNOC1JtDq19ll1L_Mqv1cMzM-b5oYUUwIhkbRA"
+
+
+// Tentative d'ajout d'un membre à la conversation 5 - échoue car l'utilisateur est déjà membre
+
+curl -X POST http://localhost:4000/api/conversations/5/members \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJoZXJtZXMiLCJleHAiOjE3NDc4MTU5NTEsImlhdCI6MTc0NTM5Njc1MSwiaXNzIjoiaGVybWVzIiwianRpIjoiMGE0ZmMyMjEtZjkyMy00NGNmLWE4YjYtNjNhMWZlMTNhNGI1IiwibmJmIjoxNzQ1Mzk2NzUwLCJzdWIiOiIyMCIsInR5cCI6ImFjY2VzcyJ9.G0q_rNI1l18YhYtmenCriEMtYV4pJLlIEaqApYbo1HYVL0HAEcGUudx-J1EvLhb8geA40dJ1egUtu0eAg0PXig" \
+  -d '{"user_id": 20}'
+
+// Ajout de l'utilisateur JohnDoe (id: 24) au groupe 29
+
+curl -X POST http://localhost:4000/api/conversations/29/members \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJoZXJtZXMiLCJleHAiOjE3NDkwMzcyOTUsImlhdCI6MTc0NjYxODA5NSwiaXNzIjoiaGVybWVzIiwianRpIjoiZWM3NGFlZWQtMTBjNy00Yjc2LWFjZDMtOWQwODIwZWNmZmM2IiwibmJmIjoxNzQ2NjE4MDk0LCJzdWIiOiIyNSIsInR5cCI6ImFjY2VzcyJ9.Y9050hgy0Wi1s1h6hcLZUDhyXgD8H7CgI8YrT8xc4GACvSZBICjKsQ8MaxolYfZWYF51A_CGLSA40-r-cj_XUg" \
+  -d '{"user_id": 24}'
+
+// Ajout de l'utilisateur DALM1 (id: 23) au groupe 29
+
+curl -X POST http://localhost:4000/api/conversations/29/members \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJoZXJtZXMiLCJleHAiOjE3NDkwMzcyOTUsImlhdCI6MTc0NjYxODA5NSwiaXNzIjoiaGVybWVzIiwianRpIjoiZWM3NGFlZWQtMTBjNy00Yjc2LWFjZDMtOWQwODIwZWNmZmM2IiwibmJmIjoxNzQ2NjE4MDk0LCJzdWIiOiIyNSIsInR5cCI6ImFjY2VzcyJ9.Y9050hgy0Wi1s1h6hcLZUDhyXgD8H7CgI8YrT8xc4GACvSZBICjKsQ8MaxolYfZWYF51A_CGLSA40-r-cj_XUg" \
+  -d '{"user_id": 23}'
